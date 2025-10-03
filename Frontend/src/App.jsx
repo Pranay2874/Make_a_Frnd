@@ -7,7 +7,7 @@ import AboutUs from "./Pages/AboutUs";
 import Profile from "./Pages/Profile";
 import RandomChat from './Pages/RandomChat'; 
 import InterestChat from './Pages/InterestChat'; 
-import Chat from './Pages/Chat'; // 👈 Import the Chat component
+import Chat from './components/Chat';
 
 const router = createBrowserRouter([
   { path: "/signin", element: <Signin /> },
