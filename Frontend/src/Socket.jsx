@@ -1,21 +1,21 @@
+// socket.jsx
 import io from "socket.io-client";
-import { BACKEND_URL } from "../config";
+import { BACKEND_URL } from "../config"; // Assuming BACKEND_URL is defined elsewhere
 
-let socket; // Declare the socket variable globally
+// Declare a variable to hold the single socket instance
+let socket; 
 
 const SocketConnection = () => {
-  if (!socket) { // Only create a new connection if it doesn't exist already
-    socket = io(BACKEND_URL, {
-      transports: ["websocket"], // Optional: Ensures WebSocket is used for transport
-      reconnect: true, // Automatically reconnect if the connection is lost
-    });
-
-    socket.on("connect_error", (err) => {
-      console.error("Connection failed:", err); // Handle connection errors
-    });
-  }
-
-  return socket;
+    // Check if the socket is already created
+    if (!socket) {
+        // Create the connection only once
+        socket = io(BACKEND_URL); 
+        
+        // Optional: Add listeners for debugging the connection state
+        // socket.on("connect", () => console.log("Socket connected:", socket.id));
+        // socket.on("disconnect", () => console.log("Socket disconnected"));
+    }
+    return socket; // Return the existing or newly created instance
 };
 
 export default SocketConnection;

@@ -1,17 +1,18 @@
+// randomchat.jsx
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // Import useNavigate
+import { useNavigate } from "react-router-dom";
 import SocketConnection from "../Socket";
 
 const RandomChat = () => {
-    const navigate = useNavigate(); // Initialize useNavigate
+    const navigate = useNavigate();
     const [waitingMessage, setWaitingMessage] = useState("");
-    const socket = SocketConnection();
+    const socket = SocketConnection(); // Get the singleton socket instance
 
     useEffect(() => {
         socket.emit("joinRandomChat");
 
         socket.on("waitingForMatch", (message) => {
-            setWaitingMessage(message); // Display waiting message while finding a random match
+            setWaitingMessage(message);
         });
 
         socket.on("startChat", ({ partnerSocketId, partnerUsername }) => {
@@ -20,14 +21,11 @@ const RandomChat = () => {
             navigate(`/chat/${partnerSocketId}`, { state: { partnerUsername } }); 
         });
 
-        // The user doesn't stay on this screen once a match is found, 
-        // so no message sending logic is needed here.
-
         return () => {
             socket.off("waitingForMatch");
             socket.off("startChat");
         };
-    }, [socket, navigate]);
+    }, [socket, navigate]); // socket dependency is safe now as it's a singleton
 
     return (
         <div className="p-4">

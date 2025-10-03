@@ -1,5 +1,6 @@
-import { useState, useEffect } from "react";
-import { useParams, useLocation } from "react-router-dom"; // Import useLocation to get state
+// chat.jsx
+import { useState, useEffect, useRef } from "react";
+import { useParams, useLocation } from "react-router-dom";
 import SocketConnection from "../Socket";
 
 const Chat = () => {
@@ -10,11 +11,21 @@ const Chat = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [isConnected, setIsConnected] = useState(true); // Track connection status
-    const socket = SocketConnection();
+    const socket = SocketConnection(); // Get the singleton socket instance
+
+    // Ref to manage the scroll position
+    const messagesEndRef = useRef(null);
+    
+    // Function to scroll to the latest message
+    const scrollToBottom = () => {
+        messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
 
     useEffect(() => {
-        // User is already matched, no need to call joinRandomChat/joinInterestChat here.
+        scrollToBottom();
+    }, [messages]);
 
+    useEffect(() => {
         // Listener for incoming messages
         socket.on("receiveMessage", (message) => {
             // Add 'isMine: false' to clearly indicate it's a received message
@@ -77,11 +88,13 @@ const Chat = () => {
                                     ? 'bg-[#4071f4] text-white' 
                                     : 'bg-white text-gray-800 border border-gray-200'
                         }`}>
-                            {!msg.isSystem && <p className="font-semibold text-xs mb-1 opacity-80">{msg.senderUsername}</p>}
+                            {!msg.isSystem && <p className={`font-semibold text-xs mb-1 opacity-80 ${msg.isMine ? 'text-white' : 'text-gray-600'}`}>{msg.senderUsername}</p>}
                             <p>{msg.text}</p>
                         </div>
                     </div>
                 ))}
+                {/* Scroll anchor */}
+                <div ref={messagesEndRef} />
             </div>
 
             {/* Input Area */}
@@ -103,11 +116,11 @@ const Chat = () => {
                     <button 
                         onClick={sendMessage}
                         className={`px-4 py-2 font-semibold rounded-lg transition duration-200 ${
-                            isConnected 
+                            isConnected && newMessage.trim()
                                 ? 'bg-[#4071f4] text-white hover:bg-[#345edb]' 
                                 : 'bg-gray-400 text-gray-600 cursor-not-allowed'
                         }`}
-                        disabled={!isConnected}
+                        disabled={!isConnected || !newMessage.trim()}
                     >
                         Send
                     </button>

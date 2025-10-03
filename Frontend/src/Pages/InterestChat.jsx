@@ -1,3 +1,4 @@
+// interestchat.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SocketConnection from "../Socket";
@@ -5,7 +6,7 @@ import SocketConnection from "../Socket";
 const InterestChat = () => {
     const { interest } = useParams();
     const [waitingMessage, setWaitingMessage] = useState("");
-    const socket = SocketConnection();
+    const socket = SocketConnection(); // Get the singleton socket instance
     const navigate = useNavigate();
     const decodedInterest = decodeURIComponent(interest); // Decode the URL parameter
 
@@ -37,7 +38,7 @@ const InterestChat = () => {
             socket.off("startChat");
             socket.off("noInterestMatchFound");
         };
-    }, [socket, decodedInterest, navigate]);
+    }, [socket, decodedInterest, navigate]); // socket dependency is safe now as it's a singleton
 
     return (
         <div className="p-4">
