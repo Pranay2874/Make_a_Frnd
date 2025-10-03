@@ -12,9 +12,12 @@ let matchedPairs = {};
 const initializeSocket = (server) => {
   const io = socket(server, {
     cors: {
-      origin: "http://localhost:5173", // Frontend URL
-      methods: ["GET", "POST"]
+      
+      origin: ["http://localhost:5173", "https://make-a-frnd.vercel.app"],
+      
+      methods: ["GET", "POST"],
     },
+    
   });
 
   io.on("connection", (socket) => {

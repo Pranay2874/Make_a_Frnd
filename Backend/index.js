@@ -4,19 +4,18 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const http = require('http');
 
-const initializeSocket =require("./socket")
+const initializeSocket = require("./socket");
 
-const userRouter = require("./user");  // Import user routes
+const userRouter = require("./user"); // Import user routes
 
 const app = express();
 const server = http.createServer(app);
 initializeSocket(server);
 
 
-
-// Allow frontend to make requests from localhost:5173
 const allowedOrigins = [
-    "http://localhost:5173",  // Your Vite frontend URL
+    "http://localhost:5173",          // Local Development URL
+    "https://make-a-frnd.vercel.app" // Deployed Frontend URL (Vercel)
 ];
 
 app.use(cors({
@@ -29,7 +28,7 @@ app.use(cors({
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/", userRouter);  
+app.use("/", userRouter);
 
 app.get("/", (req, res) => {
     res.send("MakeAFRnd Backend is Running");
