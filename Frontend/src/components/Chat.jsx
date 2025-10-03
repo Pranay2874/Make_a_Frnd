@@ -1,10 +1,10 @@
-// chat.jsx
+// chat.jsx (No changes needed)
 import { useState, useEffect, useRef } from "react";
 import { useParams, useLocation } from "react-router-dom";
 import SocketConnection from "../Socket";
 
 const Chat = () => {
-    const { usertargetId } = useParams(); // Partner's socket ID
+    const { usertargetId } = useParams(); // Partner's socket ID is correctly named
     const location = useLocation();
     const partnerUsername = location.state?.partnerUsername || "Friend"; // Get username from navigation state
     
