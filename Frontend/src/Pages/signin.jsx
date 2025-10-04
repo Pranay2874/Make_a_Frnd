@@ -32,7 +32,7 @@ export const Signin = () => {
     
         localStorage.setItem("token", response.data.token);
 
-        alert("You have signed in!");
+      //  alert("You have signed in!");
         navigate("/home"); 
       } else {
         alert("Signin failed. Please try again.");
