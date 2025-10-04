@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BACKEND_URL } from "../../config";  // Import BACKEND_URL from config
+import { BACKEND_URL } from "../../config";  
 import { UserIcon } from "../components/UserIcon";
 import { LockIcon } from "../components/LockIcon";
 
@@ -20,20 +20,19 @@ export const Signup = () => {
     }
 
     try {
-      // POST request to your backend for signup
+    
       const response = await axios.post(`${BACKEND_URL}/signup`, {
         username,
         password,
       });
 
-      // Store the JWT token in localStorage after signup
-     //
+    
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username); 
-      // Check if signup was successful and show a success message
-    //  alert("You have signed up!");
+      
+     alert("You have signed up!");
 
-      // Redirect to the home page after successful signup
+      
       navigate("/home");  
     } catch (error) {
       console.error(error);

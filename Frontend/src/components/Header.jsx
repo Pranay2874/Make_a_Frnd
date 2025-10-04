@@ -5,9 +5,9 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleLogout = () => {
-    // Logout logic: clear token or session and redirect to Signin page
-    // You can use Axios to logout the user or just clear the session locally
-    navigate("/signin"); // Redirect to signin page after logout
+      localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    navigate("/signin"); 
   };
 
   return (

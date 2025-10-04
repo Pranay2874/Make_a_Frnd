@@ -1,4 +1,3 @@
-// socket.js
 const socket = require("socket.io");
 
 // Store users based on interest for Interest Chat
@@ -65,9 +64,6 @@ const initializeSocket = (server) => {
             dissolveMatch(socket.id);
         });
 
-        // ==========================================================
-        // NEW: Event for user voluntarily leaving the current chat (Skip)
-        // ==========================================================
         socket.on("disconnectFromChat", () => {
             if (dissolveMatch(socket.id)) {
                 console.log(`${currentUser?.username} intentionally disconnected from chat.`);

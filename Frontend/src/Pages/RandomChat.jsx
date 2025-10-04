@@ -1,4 +1,3 @@
-// randomchat.jsx
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SocketConnection from "../Socket";
@@ -6,7 +5,7 @@ import SocketConnection from "../Socket";
 const RandomChat = () => {
     const navigate = useNavigate();
     const [waitingMessage, setWaitingMessage] = useState("");
-    const socket = SocketConnection(); // Get the singleton socket instance
+    const socket = SocketConnection();
 
     useEffect(() => {
         socket.emit("joinRandomChat");
@@ -17,7 +16,7 @@ const RandomChat = () => {
 
         socket.on("startChat", ({ partnerSocketId, partnerUsername }) => {
             console.log("Started chat with:", partnerUsername, partnerSocketId);
-            // Redirect to the dedicated chat route with the partner's ID
+            
             navigate(`/chat/${partnerSocketId}`, { state: { partnerUsername } }); 
         });
 
@@ -25,7 +24,7 @@ const RandomChat = () => {
             socket.off("waitingForMatch");
             socket.off("startChat");
         };
-    }, [socket, navigate]); // socket dependency is safe now as it's a singleton
+    }, [socket, navigate]); 
 
     return (
         <div className="p-4">

@@ -1,4 +1,3 @@
-// interestchat.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import SocketConnection from "../Socket";
@@ -6,12 +5,11 @@ import SocketConnection from "../Socket";
 const InterestChat = () => {
     const { interest } = useParams();
     const [waitingMessage, setWaitingMessage] = useState("");
-    const socket = SocketConnection(); // Get the singleton socket instance
+    const socket = SocketConnection(); 
     const navigate = useNavigate();
-    const decodedInterest = decodeURIComponent(interest); // Decode the URL parameter
+    const decodedInterest = decodeURIComponent(interest); 
 
     useEffect(() => {
-        // Emit interest to the server
         socket.emit("joinInterestChat", decodedInterest);
 
         socket.on("waitingForMatch", (message) => {
@@ -20,14 +18,11 @@ const InterestChat = () => {
 
         socket.on("startChat", (data) => {
             console.log("Started chat with:", data.partnerUsername);
-            // Navigate to the chat page once a match is found
             navigate(`/chat/${data.partnerSocketId}`, { state: { partnerUsername: data.partnerUsername } });
         });
         
-        // Handle the 30-second timeout from the server
         socket.on("noInterestMatchFound", () => {
             setWaitingMessage("No one found with that interest. Switching to Random Chat...");
-            // Automatically switch to random chat after a brief message delay
             setTimeout(() => {
                 navigate("/RandomChat"); 
             }, 2000); 
@@ -38,7 +33,7 @@ const InterestChat = () => {
             socket.off("startChat");
             socket.off("noInterestMatchFound");
         };
-    }, [socket, decodedInterest, navigate]); // socket dependency is safe now as it's a singleton
+    }, [socket, decodedInterest, navigate]); 
 
     return (
         <div className="p-4">

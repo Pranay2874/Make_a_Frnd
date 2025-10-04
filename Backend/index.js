@@ -6,7 +6,7 @@ const http = require('http');
 
 const initializeSocket = require("./socket");
 
-const userRouter = require("./user"); // Import user routes
+const userRouter = require("./user"); 
 
 const app = express();
 const server = http.createServer(app);
@@ -14,8 +14,8 @@ initializeSocket(server);
 
 
 const allowedOrigins = [
-    "http://localhost:5173",          // Local Development URL
-    "https://make-a-frnd.vercel.app" // Deployed Frontend URL (Vercel)
+    "http://localhost:5173",          
+    "https://make-a-frnd.vercel.app" 
 ];
 
 app.use(cors({

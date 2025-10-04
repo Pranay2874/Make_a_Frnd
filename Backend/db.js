@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const userSchema = new mongoose.Schema({
-    // 1. For Login
+    
     username: { 
         type: String, 
         unique: true, 

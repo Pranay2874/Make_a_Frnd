@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { BACKEND_URL } from "../../config"; // Ensure correct backend URL
+import { BACKEND_URL } from "../../config"; 
 import { UserIcon } from "../components/UserIcon";
 import { LockIcon } from "../components/LockIcon";
 
@@ -20,22 +20,20 @@ export const Signin = () => {
     }
 
     try {
-      // Clear any existing token from localStorage before new login
+      
       localStorage.removeItem("token");
 
-      // POST request to /signin (no API versioning)
       const response = await axios.post(`${BACKEND_URL}/signin`, {
         username,
         password,
       });
 
-      // Check if login is successful
       if (response.data.token) {
-        // Store the JWT token in localStorage
+    
         localStorage.setItem("token", response.data.token);
 
         alert("You have signed in!");
-        navigate("/home"); // Redirect to the home page after successful login
+        navigate("/home"); 
       } else {
         alert("Signin failed. Please try again.");
       }

@@ -1,7 +1,7 @@
 // app.jsx
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import { Signup } from './Pages/signup'; // Import Signup Page
-import { Signin } from './Pages/signin'; // Import Signin Page
+import { Signup } from './Pages/signup'; 
+import { Signin } from './Pages/signin'; 
 import { Home } from './Pages/Home';
 import AboutUs from "./Pages/AboutUs";
 import Profile from "./Pages/Profile";
@@ -15,14 +15,12 @@ const router = createBrowserRouter([
   { path: "/", element: <Signup /> },
   { path: "/home", element: <Home /> },
   { path: "/Profile", element: <Profile /> },
-  { path: "/AboutUs", element: <AboutUs /> }, // Added AboutUs as it was imported but unused
+  { path: "/AboutUs", element: <AboutUs /> }, 
   { path: "/RandomChat", element: <RandomChat /> },
 
-  // 💥 NEW: This route fixes the "No routes matched location" error.
-  // The parameter name :usertargetId matches the name used in chat.jsx: useParams().
+  
   { path: "/chat/:usertargetId", element: <Chat /> }, 
 
-  // Dynamic route for InterestChat is correct
   { path: "/InterestChat/:interest", element: <InterestChat /> },
 ]);
 

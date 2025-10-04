@@ -14,7 +14,7 @@ const AboutUs = () => {
                     <p className="text-lg text-gray-700">
                         View 
                     </p>
-                    {/* You can add additional profile information or forms here */}
+                
                 </div>
             </div>
         </div>

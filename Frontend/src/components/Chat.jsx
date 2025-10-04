@@ -75,7 +75,7 @@ const Chat = () => {
                     onClick={handleSkipChat}
                     className="px-4 py-2 text-sm font-semibold rounded-lg bg-red-500 text-white hover:bg-red-600 transition duration-200"
                 >
-                    Skip Chat ⏭️
+                    Skip Chat 
                 </button>
                 
                 {/* Disconnected message area */}

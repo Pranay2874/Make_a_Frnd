@@ -9,8 +9,8 @@ const Profile = () => {
     const [username, setUsername] = useState("Loading...");
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-    const [newUsername, setNewUsername] = useState(""); // State for new username input
-    const [updateMessage, setUpdateMessage] = useState(null); // Feedback for update
+    const [newUsername, setNewUsername] = useState(""); 
+    const [updateMessage, setUpdateMessage] = useState(null);
     const [updateLoading, setUpdateLoading] = useState(false);
     const navigate = useNavigate();
 
@@ -31,10 +31,10 @@ const Profile = () => {
             
             const currentUsername = response.data.username;
             setUsername(currentUsername);
-            setNewUsername(currentUsername); // Initialize input with current username
+            setNewUsername(currentUsername); 
             setLoading(false);
         } catch (err) {
-            // ... (Error handling remains the same) ...
+            
             console.error("Profile fetch error:", err);
             setError("Failed to load profile. Please sign in again.");
             setLoading(false);
@@ -50,9 +50,6 @@ const Profile = () => {
         fetchProfile();
     }, [navigate]);
 
-    // ==========================================================
-    // NEW: Handle Username Update
-    // ==========================================================
     const handleUpdateUsername = async () => {
         if (newUsername.trim().toLowerCase() === username.toLowerCase()) {
             setUpdateMessage({ type: 'info', text: "Username is the same. No update needed." });
@@ -79,16 +76,16 @@ const Profile = () => {
             );
             
             const updatedUsername = response.data.username;
-            setUsername(updatedUsername); // Update display state
-            localStorage.setItem("username", updatedUsername); // Update local storage
-            setUpdateMessage({ type: 'success', text: "Username changed successfully! 🎉" });
+            setUsername(updatedUsername); 
+            localStorage.setItem("username", updatedUsername); 
+            setUpdateMessage({ type: 'success', text: "Username changed successfully!" });
             
-            // Re-identify the user to the socket server with the new name
+            
             SocketConnection().emit("setUser", updatedUsername); 
         } catch (err) {
             const msg = err.response?.data?.message || "An unexpected error occurred.";
             setUpdateMessage({ type: 'error', text: msg });
-            // Revert input field to current confirmed username on failure
+            
             setNewUsername(username); 
         } finally {
             setUpdateLoading(false);
@@ -97,7 +94,7 @@ const Profile = () => {
 
 
     const displayContent = () => {
-        // ... (Loading/Error handling remains the same) ...
+        
         if (loading) {
             return <div className="text-gray-500 text-xl">Loading profile data...</div>;
         }
@@ -117,7 +114,7 @@ const Profile = () => {
                     {username}
                 </h2>
                 
-                {/* Username Change Form */}
+                
                 <div className="mt-6 border-t pt-6">
                     <h3 className="text-lg font-semibold text-gray-700 mb-3">Change Username</h3>
                     <input
@@ -140,7 +137,7 @@ const Profile = () => {
                         {updateLoading ? 'Updating...' : 'Save New Username'}
                     </button>
 
-                    {/* Update Feedback Message */}
+                    
                     {updateMessage && (
                         <p className={`mt-3 text-sm text-center font-medium ${
                             updateMessage.type === 'error' ? 'text-red-500' : 
