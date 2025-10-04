@@ -30,9 +30,9 @@ export const Signin = () => {
 
       if (response.data.token) {
     
-        localStorage.removeItem("username"); // optional cleanup
+        localStorage.removeItem("username");
   localStorage.setItem("token", response.data.token);
-  localStorage.setItem("username", response.data.username); // <-- add
+  localStorage.setItem("username", response.data.username);
   navigate("/home");
       } else {
         alert("Signin failed. Please try again.");

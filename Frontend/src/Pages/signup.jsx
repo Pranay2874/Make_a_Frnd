@@ -30,7 +30,7 @@ export const Signup = () => {
       localStorage.setItem("token", response.data.token);
       localStorage.setItem("username", response.data.username); 
       
-     alert("You have signed up!");
+    // alert("You have signed up!");
 
       
       navigate("/home");  
