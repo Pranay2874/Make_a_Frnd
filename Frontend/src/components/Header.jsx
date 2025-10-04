@@ -21,7 +21,7 @@ const Header = () => {
             <button onClick={() => navigate('/home')} className="text-gray-600 hover:text-indigo-600 transition duration-150">
               Home
             </button>
-            <button onClick={() => navigate('/about')} className="text-gray-600 hover:text-indigo-600 transition duration-150">
+            <button onClick={() => navigate('/aboutus')} className="text-gray-600 hover:text-indigo-600 transition duration-150">
               About Us
             </button>
             <button onClick={() => navigate('/profile')} className="text-gray-600 hover:text-indigo-600 transition duration-150">
