@@ -75,4 +75,50 @@ router.get("/profile", userauth, async (req, res) => {
     }
 });
 
+router.put("/update-username", userauth, async (req, res) => {
+    try {
+        const { newUsername } = req.body;
+
+        if (!newUsername || newUsername.trim().length === 0) {
+            return res.status(400).json({ message: "New username is required." });
+        }
+
+        const normalizedNewUsername = newUsername.toLowerCase().trim();
+
+        // 1. Check if the new username is already taken by another user
+        const existingUser = await userModel.findOne({ username: normalizedNewUsername });
+        
+        // Ensure the existing user is NOT the current user
+        if (existingUser && existingUser._id.toString() !== req.user.userId) {
+            return res.status(409).json({ message: "This username is already taken. Please choose a unique one." });
+        }
+        
+        // 2. Update the user's username
+        const updatedUser = await userModel.findByIdAndUpdate(
+            req.user.userId,
+            { username: normalizedNewUsername },
+            { new: true, runValidators: true }
+        ).select('username');
+
+        if (!updatedUser) {
+            return res.status(404).json({ message: "User not found." });
+        }
+
+        // 3. Optional: Generate a new token if you want the token to reflect the new username immediately
+        // const newToken = jwt.sign({ userId: updatedUser._id, username: updatedUser.username }, JWT_SECRET, { expiresIn: "1h" });
+
+        // Since the current token still holds the user ID, we can just update the local username
+        res.status(200).json({ 
+            message: "Username updated successfully!", 
+            username: updatedUser.username,
+            // newToken // Uncomment if you want to issue a new token
+        });
+
+    } catch (error) {
+        console.error("Update Username Error:", error);
+        res.status(500).json({ message: "Failed to update username.", error: error.message });
+    }
+});
+
+
 module.exports = router;
