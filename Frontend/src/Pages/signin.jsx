@@ -30,10 +30,10 @@ export const Signin = () => {
 
       if (response.data.token) {
     
-        localStorage.setItem("token", response.data.token);
-
-      //  alert("You have signed in!");
-        navigate("/home"); 
+        localStorage.removeItem("username"); // optional cleanup
+  localStorage.setItem("token", response.data.token);
+  localStorage.setItem("username", response.data.username); // <-- add
+  navigate("/home");
       } else {
         alert("Signin failed. Please try again.");
       }
