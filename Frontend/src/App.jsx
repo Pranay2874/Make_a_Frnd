@@ -3,7 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { Signup } from './Pages/signup'; 
 import { Signin } from './Pages/signin'; 
 import { Home } from './Pages/Home';
-import AboutUs from "./Pages/AboutUs";
+import AboutUs from './Pages/AboutUs';
 import Profile from "./Pages/Profile";
 import RandomChat from './Pages/RandomChat'; 
 import InterestChat from './Pages/InterestChat'; 
@@ -15,7 +15,9 @@ const router = createBrowserRouter([
   { path: "/", element: <Signup /> },
   { path: "/home", element: <Home /> },
   { path: "/Profile", element: <Profile /> },
-  { path: "/AboutUs", element: <AboutUs /> }, 
+  {
+    path:"/aboutus",element:<AboutUs></AboutUs>
+  },
   { path: "/RandomChat", element: <RandomChat /> },
 
   
